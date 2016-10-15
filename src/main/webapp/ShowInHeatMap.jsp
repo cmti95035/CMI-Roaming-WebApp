@@ -94,7 +94,7 @@ $.ajax({ url: url,
     }
 
     function loadDataToHeatMap(data) {
-    window.alert("Successfully retrieved heatmap data from server. Click OK to display heatmap");
+    //window.alert("Successfully retrieved heatmap data from server. Click OK to display heatmap");
         var temp = new Array();
         temp = data.split(",");
         var tempLen = temp.length;

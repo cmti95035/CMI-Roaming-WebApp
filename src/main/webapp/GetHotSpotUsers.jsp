@@ -33,7 +33,9 @@
             sb.append("<select id='hotspots' name='hotspots'>");
             String line;
             Random r = new Random(100);
-            int index = 1;
+            int index = 3;
+            sb.append("<option value=\"1\">46000054508XXXX</option>");
+            sb.append("<option value=\"2\">45412041318XXXX</option>");
             while((line = reader.readLine())!= null){
                 if(r.nextInt() > 50){
                     String s = "<option value=\"" + index + "\">" + line + "</option>";

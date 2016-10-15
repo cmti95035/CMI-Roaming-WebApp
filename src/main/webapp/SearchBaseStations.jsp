@@ -23,7 +23,8 @@
 
             try {
               String line;
-              String execStr = "/usr/bin/java -jar /root/FindBaseStations.jar /Users/jianli/Downloads/cmidata/xdr_http/raw/cell_towers_select.csv " + outputFile + " TAB " + latitudeStr + " " + longitudeStr + " " + radiusStr;
+              //String execStr = "/usr/bin/java -jar /root/FindBaseStations.jar /Users/jianli/Downloads/cmidata/xdr_http/raw/cell_towers_select.csv " + outputFile + " COMMA " + latitudeStr + " " + longitudeStr + " " + radiusStr;
+              String execStr = "/usr/bin/java -jar /root/FindUserLocations.jar /Users/jianli/Downloads/cmidata/xdr_http/user-trace-with-gps.csv.orig " + outputFile + " COMMA " + latitudeStr + " " + longitudeStr + " " + radiusStr;
 
               System.out.println("Will execute: " + execStr);
               Process p = Runtime.getRuntime().exec(execStr);
