@@ -96,9 +96,9 @@
             }
             sb.append("</table>");
 
-            String result = "<h3>Found " + (count == 0 ? count : count - 1) + " users who travelled within a radius of " + radiusStr + " miles from the center of the</h3>";
+            String result = "<h3> 在谷歌地图上选取的GPS坐标 (" + latitudeStr + "," + longitudeStr + ") 为中心的 " + radiusStr + " 英里半径内</h3>";
             out.println(result);
-            result = "<h3> GPS location (" + latitudeStr + "," + longitudeStr + ") you picked on Google map:</h3>";
+            result = "<h3>一共找到 " + (count == 0 ? count : count - 1) + " 移动用户</h3>";
             out.println(result);
             out.println(sb.toString());
 

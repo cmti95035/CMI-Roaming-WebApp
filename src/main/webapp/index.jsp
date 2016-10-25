@@ -28,10 +28,14 @@
  <h2><a href="ShowInHeatMap.jsp" > 移动用户分布热力图显示 </a></h2></td>
 
                                                      </tr>
+                                                       <tr>
+<td>
+ <h2><a href="HongKongInHeatMap.jsp" > 春节期间出访香港用户热力图分布 </a></h2></td>
 
+                                                     </tr>
                                                      <tr>
 <td>
- <h2><a href="GetHotSpotUsers.jsp" > 当前移动热点用户及其轨迹展示 </a></h2></td>
+ <h2><a href="GetHotSpotUsers.jsp" > 移动用户及其轨迹展示 </a></h2></td>
 
                                                      </tr>
 </table>
