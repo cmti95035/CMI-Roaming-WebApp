@@ -71,10 +71,12 @@ $.ajax({ url: url,
         //window.alert("Successfully retrieved heatmap data from server. Received " + tempLen + " records. Click OK to display heatmap");
         var pointsArray = new Array();
         var bounds = new google.maps.LatLngBounds();
-        for(i = 0; i < tempLen; i+=2){
+        for(i = 0; i < tempLen; i+=3){
             var lng = parseFloat(temp[i]);
             var lan = parseFloat(temp[i+1]);
-            pointsArray.push(new google.maps.LatLng(lan, lng));
+            var weight = parseInt(temp[i+2]);
+            pointsArray.push({location: new google.maps.LatLng(lan, lng), weight: weight});
+
             bounds.extend(new google.maps.LatLng(lan, lng));
         }
 

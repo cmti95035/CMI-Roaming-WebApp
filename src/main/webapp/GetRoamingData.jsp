@@ -8,6 +8,8 @@
 <%@page import="java.lang.Thread"%>
 <%@page import="java.util.Random"%>
 <%@page import="java.util.List"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.google.gson.Gson"%>
 <%@page contentType="html/text" pageEncoding="UTF-8"%>
@@ -21,19 +23,28 @@
             StringBuilder sb = new StringBuilder();
 
             String line;
+            HashMap<String, Integer> gpsCount = new HashMap<String, Integer>();
             while((line = reader.readLine())!= null){
                 String[] parts = line.split(",");
                 if(parts[3].equals("454")) {
-                    if(sb.length() != 0)
-                        sb.append(",");
-
                     if(parts.length == 12){
-
-                        sb.append(parts[10]);
-                        sb.append(",");
-                        sb.append(parts[11]);
+                        String key = parts[10] + "," + parts[11];
+                        if(gpsCount.containsKey(key)){
+                            gpsCount.put(key, gpsCount.get(key) + 1);
+                        } else {
+                            gpsCount.put(key, 1);
+                        }
                     }
                 }
+            }
+
+            boolean isStart = true;
+            for(Map.Entry<String, Integer> entry : gpsCount.entrySet()){
+                if(isStart)
+                    isStart = false;
+                else
+                    sb.append(",");
+                sb.append(entry.getKey() + "," + entry.getValue());
             }
 
             out.println(sb.toString());
