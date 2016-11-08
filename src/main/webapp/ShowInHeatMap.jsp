@@ -1,60 +1,97 @@
 <%@ page language="java" contentType="text/html; charset=EUC-CN"
-    pageEncoding="EUC-CN"%>
+	pageEncoding="EUC-CN"%>
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Heatmaps</title>
-    <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      #map {
-        height: 100%;
-      }
-      #floating-panel {
-        position: absolute;
-        top: 10px;
-        left: 25%;
-        z-index: 5;
-        background-color: #fff;
-        padding: 5px;
-        border: 1px solid #999;
-        text-align: center;
-        font-family: 'Roboto','sans-serif';
-        line-height: 30px;
-        padding-left: 10px;
-      }
-      #floating-panel {
-        background-color: #fff;
-        border: 1px solid #999;
-        left: 25%;
-        padding: 5px;
-        position: absolute;
-        top: 10px;
-        z-index: 5;
-      }
-    </style>
-  </head>
+<head>
+<meta charset="utf-8">
+<title>Heatmaps</title>
+<style>
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
 
-  <body>
-    <div id="floating-panel">
-      <button onclick="toggleHeatmap()">Toggle Heatmap</button>
-      <button onclick="changeGradient()">Change gradient</button>
-      <button onclick="changeRadius()">Change radius</button>
-      <button onclick="changeOpacity()">Change opacity</button>
-    </div>
-    <div id="map"></div>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
-    <script>
+#map {
+	height: 100%;
+}
+
+#floating-panel {
+	position: absolute;
+	top: 10px;
+	left: 25%;
+	z-index: 5;
+	background-color: #fff;
+	padding: 5px;
+	border: 1px solid #999;
+	text-align: center;
+	font-family: 'Roboto', 'sans-serif';
+	line-height: 30px;
+	padding-left: 10px;
+}
+
+#floating-panel {
+	background-color: #fff;
+	border: 1px solid #999;
+	left: 25%;
+	padding: 5px;
+	position: absolute;
+	top: 10px;
+	z-index: 5;
+}
+</style>
+</head>
+
+<body>
+	<div id="floating-panel">
+		<button onclick="toggleHeatmap()">Toggle Heatmap</button>
+		<button onclick="changeGradient()">Change gradient</button>
+		<button onclick="changeRadius()">Change radius</button>
+		<button onclick="changeOpacity()">Change opacity</button>
+	</div>
+	<div id="map"></div>
+	<script type="text/javascript"
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+	<script>
 
       // This example requires the Visualization library. Include the libraries=visualization
       // parameter when you first load the API. For example:
       // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=visualization">
 
       var map, heatmap;
+      var markers = [];
+
+        // Adds a marker to the map and push to the array.
+        function addMarker(location) {
+          var marker = new google.maps.Marker({
+            position: location,
+            map: map
+          });
+          markers.push(marker);
+        }
+
+        // Sets the map on all markers in the array.
+        function setMapOnAll(map) {
+          for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(map);
+          }
+        }
+
+        // Removes the markers from the map, but keeps them in the array.
+        function clearMarkers() {
+          setMapOnAll(null);
+        }
+
+        // Shows any markers currently in the array.
+        function showMarkers() {
+          setMapOnAll(map);
+        }
+
+        // Deletes all markers in the array by removing references to them.
+        function deleteMarkers() {
+          clearMarkers();
+          markers = [];
+        }
 
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -73,6 +110,7 @@ var html = "Radius: <input id='radius' name='radius' placeholder='Radius' type='
               map: map
             });
             google.maps.event.addListener(marker, "click", function() {
+              markers.push(marker);
               infowindow.open(map, marker);
             });
         });
@@ -86,6 +124,7 @@ var html = "Radius: <input id='radius' name='radius' placeholder='Radius' type='
       infowindow.close();
       if(heatmap != null)
         heatmap.setMap(null);
+        deleteMarkers();
 $.ajax({ url: url,
          type: 'GET',
          success: loadDataToHeatMap,
@@ -188,8 +227,8 @@ new google.maps.LatLng(22.283803,114.158544)
         ];
       }
     </script>
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_GOOW6aZsUtDxaJ3yyUPis8M1QG6WqXk&libraries=visualization&callback=initMap">
+	<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_GOOW6aZsUtDxaJ3yyUPis8M1QG6WqXk&libraries=visualization&callback=initMap">
     </script>
-  </body>
+</body>
 </html>
